@@ -1,23 +1,30 @@
+DISKON_LEVEL_1 = 0.15
+DISKON_LEVEL_2 = 0.10
+TARIF_PPN = 0.11
+
+BATAS_MIN_DISKON_1 = 200000
+BATAS_MIN_DISKON_2 = 100000
+
 print("=== SISTEM KASIR TOKO ===")
-n = input("Masukkan nama barang: ")
-h = float(input("Masukkan harga barang: "))
-j = int(input("Masukkan jumlah beli: "))
+nama_barang = input("Masukkan nama barang: ")
+harga_barang = float(input("Masukkan harga barang: "))
+jumlah_beli = int(input("Masukkan jumlah beli: "))
 
-t = h * j
-d = 0
+total_awal = harga_barang * jumlah_beli
+jumlah_diskon = 0
 
-if t > 200000:
-    d = t * 0.15  
-elif t > 100000:
-    d = t * 0.10  
+if total_awal > BATAS_MIN_DISKON_1:
+    jumlah_diskon = total_awal * DISKON_LEVEL_1
+elif total_awal > BATAS_MIN_DISKON_2:
+    jumlah_diskon = total_awal * DISKON_LEVEL_2
 
-tot = t - d
-pjk = tot * 0.11  
-akhir = tot + pjk
+total_setelah_diskon = total_awal - jumlah_diskon
+jumlah_ppn = total_setelah_diskon * TARIF_PPN
+total_akhir_bayar = total_setelah_diskon + jumlah_ppn
 
 print("\n--- STRUK BELANJA ---")
-print("Barang:", n)
-print("Total Awal: Rp", t)
-print("Diskon: Rp", d)
-print("PPN: Rp", pjk)
-print("Total Bayar: Rp", akhir)
+print(f"Barang      : {nama_barang}")
+print(f"Total Awal  : Rp{total_awal}")
+print(f"Diskon      : Rp{jumlah_diskon}")
+print(f"PPN (11%)   : Rp{jumlah_ppn}")
+print(f"Total Bayar : Rp{total_akhir_bayar}")
